@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class PaymentController extends Controller
 {
@@ -56,8 +56,12 @@ public function processPayment(Product $product)
         // Tambahkan bank lain sesuai kebutuhan
     ];
 
-    return view('payments.create-virtual-account', ['banks' => $banks]);
+    // Ambil total harga dari sesi
+    $totalPrice = session()->get('total_price');
+
+    return view('payments.create-virtual-account', ['banks' => $banks, 'totalPrice' => $totalPrice]);
 }
+
 
 public function createVirtualAccount(Request $request)
 {
@@ -67,13 +71,19 @@ $external_id = Str::random(10);
 $data_request = Http::withHeaders([
     'Authorization' => $secret_key
 ])->post('https://api.xendit.co/callback_virtual_accounts', [
+    'name' => 'Riz',
     'external_id' => $external_id,
     'bank_code' => $request->bank_code,
-    'name' => $request->name,
+    'is_closed' => true,
+    'expected_amount' => $request->expected_amount,
+    'expiration_date' => date('Y-m-d H:i:s', strtotime('+1 day')),
 ]);
+$response = $data_request->object();
 
-dd ($data_request->object());
-
+        // Menggunakan NumberFormatter untuk mengonversi angka ke kata-kata dalam bahasa Indonesia
+        $formatter = new \NumberFormatter("id", \NumberFormatter::SPELLOUT);
+        $teksTerbilang = $formatter->format($response->expected_amount);
+return view('payments.virtual-account', compact('response', 'teksTerbilang'));
 }
 
 public function showSimulatePaymentForm()
@@ -95,10 +105,8 @@ public function simulatePayment(Request $request)
             'bank_account_number' => $bankAccountNumber,
             'bank_code' => $bankCode,
         ]);
-
         // Mendapatkan respons dari server dalam bentuk JSON
         $responseData = $response->json();
-
         // Menampilkan respons dari server
         return response()->json($responseData);
     }

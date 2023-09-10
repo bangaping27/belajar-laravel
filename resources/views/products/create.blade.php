@@ -38,11 +38,19 @@
                             <tr>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->price }}</td>
+                                <td>
+                                    <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                        </tbody>                        
                     </table>
                 </div>
+                <a href="{{ route('cart.index') }}" class="btn btn-success">Lihat Keranjang</a>
+
                 <div class="card-footer">
                     <a href="{{ route('product.create') }}" class="btn btn-success">Tambah Produk Baru</a>
                 </div>

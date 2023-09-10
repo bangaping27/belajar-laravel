@@ -11,9 +11,9 @@
         <!-- Tambahkan header Anda di sini -->
         <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <!-- Tambahkan item menu lainnya di sini -->
+                <li><a href="/add-product">Tambah Produk</a></li>
+                <li><a href="/create-virtual-account">Bikin Virtual Account</a></li>
+                <li><a href="/simulate-payment">Simulasi Payment</a></li>
             </ul>
         </nav>
     </header>

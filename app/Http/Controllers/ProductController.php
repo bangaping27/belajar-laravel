@@ -15,7 +15,6 @@ class ProductController extends Controller
 
 public function store(Request $request)
 {
-    // Simpan produk ke database
     $product = new Product();
     $product->name = $request->input('product_name');
     $product->price = $request->input('product_price');

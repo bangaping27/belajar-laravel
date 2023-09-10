@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,13 +39,19 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 //------------------ 3. product --------------------------//
 Route::get('/add-product',[ProductController::class, 'create'])->name('add-product');
 Route::post('/add-product', [ProductController::class, 'store'])->name('product.create');
+Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/cart/remove/satu/{id}', [CartController::class, 'removeFromCartSatu'])->name('cart.remove.satu');
+Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
 Route::get('/checkout/{product}',[PaymentController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/{product}',[PaymentController::class, 'processPayment'])->name('checkout.process');
 //-----------------------------------------------------//
 
 //------------------ 4. Payment --------------------------//
 Route::get('/create-virtual-account', [PaymentController::class, 'showCreateForm']);
-Route::post('/create-virtual-account', [PaymentController::class, 'createVirtualAccount']);
+Route::post('/create-virtual-account', [PaymentController::class, 'createVirtualAccount'])->name('createVirtualAccount');
 
 Route::get('/simulate-payment', [PaymentController::class, 'showSimulatePaymentForm'])->name('showSimulatePaymentForm');
 Route::post('/simulate-payment', [PaymentController::class, 'simulatePayment'])->name('simulatePayment');
