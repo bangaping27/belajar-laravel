@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +33,11 @@ Route::post('/register', [AuthController::class, 'register']);
 
 //------------------ 2. Dashboard ---------------------//
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//-----------------------------------------------------//
+
+//------------------ 3. product --------------------------//
+Route::get('/add-product',[ProductController::class, 'create'])->name('add-product');
+Route::post('/add-product', [ProductController::class, 'store'])->name('product.create');
+Route::get('/checkout/{product}',[PaymentController::class, 'checkout'])->name('checkout');
+Route::post('/checkout/{product}',[PaymentController::class, 'processPayment'])->name('checkout.process');
+
