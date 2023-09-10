@@ -40,4 +40,11 @@ Route::get('/add-product',[ProductController::class, 'create'])->name('add-produ
 Route::post('/add-product', [ProductController::class, 'store'])->name('product.create');
 Route::get('/checkout/{product}',[PaymentController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/{product}',[PaymentController::class, 'processPayment'])->name('checkout.process');
+//-----------------------------------------------------//
 
+//------------------ 4. Payment --------------------------//
+Route::get('/create-virtual-account', [PaymentController::class, 'showCreateForm']);
+Route::post('/create-virtual-account', [PaymentController::class, 'createVirtualAccount']);
+
+Route::get('/simulate-payment', [PaymentController::class, 'showSimulatePaymentForm'])->name('showSimulatePaymentForm');
+Route::post('/simulate-payment', [PaymentController::class, 'simulatePayment'])->name('simulatePayment');

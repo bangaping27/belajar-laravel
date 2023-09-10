@@ -28,6 +28,7 @@
             <p>identity_amount: {{ $bank->identity_amount }}</p>
         </li>
     @endforeach
+    <p>QRIS : {{ $bank->available_qr_codes }}</p>
 </ul>
 
     </body>
