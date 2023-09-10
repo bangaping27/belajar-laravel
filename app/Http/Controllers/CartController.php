@@ -95,9 +95,12 @@ public function removeFromCartSatu($id)
             // Jika jumlahnya lebih dari satu, kurangkan satu
             if ($item['quantity'] > 1) {
                 $cart[$key]['quantity'] -= 1;
+                //sudah fix
+                $cart[$key]['total_price'] = $cart[$key]['quantity'] * $item['price'];
             } else {
                 // Jika jumlahnya hanya satu, hapus item
                 unset($cart[$key]);
+
             }
             break; // Keluar dari loop setelah menemukan item
         }
