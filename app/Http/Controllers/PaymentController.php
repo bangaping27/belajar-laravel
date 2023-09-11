@@ -53,6 +53,7 @@ public function processPayment(Product $product)
         'PERMATA' => 'Bank Permata',
         'CIMB' => 'Bank CIMB',
         'BTPN' => 'Bank BTPN',
+        'ALFAMART' => 'Alfamart',
         // Tambahkan bank lain sesuai kebutuhan
     ];
 
@@ -66,19 +67,19 @@ public function processPayment(Product $product)
 public function createVirtualAccount(Request $request)
 {
     $secret_key = 'Basic '.config('xendit.key_auth');
-$external_id = Str::random(10);
-
+$external_id = Str::random(3);
 $data_request = Http::withHeaders([
     'Authorization' => $secret_key
-])->post('https://api.xendit.co/callback_virtual_accounts', [
-    'name' => 'Riz',
+])->post('https://api.xendit.co/fixed_payment_code', [
     'external_id' => $external_id,
-    'bank_code' => $request->bank_code,
-    'is_closed' => true,
-    'expected_amount' => $request->expected_amount,
-    'expiration_date' => date('Y-m-d H:i:s', strtotime('+1 day')),
+    'retail_outlet_name' => 'ALFAMART',
+    'name' => 'Rizky Ramadhan',
+    'expected_amount' => 10000,
 ]);
+
 $response = $data_request->object();
+
+dd ($response);
 
         // Menggunakan NumberFormatter untuk mengonversi angka ke kata-kata dalam bahasa Indonesia
         $formatter = new \NumberFormatter("id", \NumberFormatter::SPELLOUT);
@@ -111,5 +112,19 @@ public function simulatePayment(Request $request)
         return response()->json($responseData);
     }
 
+    public function retrieveFpc($fpcId)
+    {
+        // Set your Xendit API key
+        $apiKey =  'Basic '.config('xendit.key_auth');
+
+        // Make the GET request to retrieve the FPC
+        $response = Http::withHeaders([
+            'Authorization' => $apiKey,
+            'Content-Type' => 'application/json',
+        ])->get('https://api.xendit.co/fixed_payment_code/' . $fpcId);
+        
+
+        dd ($response);
+    }
 }
 

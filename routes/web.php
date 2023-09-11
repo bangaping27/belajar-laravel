@@ -45,6 +45,7 @@ Route::post('/cart/remove/satu/{id}', [CartController::class, 'removeFromCartSat
 Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+Route::get('/retrieve-fpc/{fpcId}', [PaymentController::class, 'retrieveFPC'])->name('retrieveFPC');
 Route::get('/checkout/{product}',[PaymentController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/{product}',[PaymentController::class, 'processPayment'])->name('checkout.process');
 //-----------------------------------------------------//
