@@ -6,6 +6,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\SertifikatController;
+use App\Models\Materi;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +59,27 @@ Route::post('/create-virtual-account', [PaymentController::class, 'createVirtual
 
 Route::get('/simulate-payment', [PaymentController::class, 'showSimulatePaymentForm'])->name('showSimulatePaymentForm');
 Route::post('/simulate-payment', [PaymentController::class, 'simulatePayment'])->name('simulatePayment');
+
+//-----------------------------------------------------//
+Route::get('academies', [MateriController::class, 'index'])->name('materi.index');
+
+//--------------------------------------------------------
+Route::get('/materi/create',[MateriController::class, 'create'])->name('materi.create');
+Route::post('/materi', [MateriController::class, 'store'])->name('materi.store');
+
+Route::get('/materi/{materi}/sub-materi/create',[MateriController::class, 'createsubmateri'])->name('sub-materi.create');
+Route::post('/materi/{materi}/sub-materi', [MateriController::class, 'storesubmateri'])->name('sub-materi.store');
+
+Route::get('/sub-materi/{subMateri}/isi/create',[MateriController::class, 'createisi'])->name('isi.create');
+Route::post('/sub-materi/{subMateri}/isi', [MateriController::class, 'storeisi'])->name('isi.store');
+
+Route::get('/materi/{materi}',[MateriController::class, 'show'])->name('materi.show');
+Route::get('isi-submateri/{isiSubMateri}', [MateriController::class, 'showSubMateri'])->name('isi.show');
+
+Route::get('sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
+Route::post('/buat',[SertifikatController::class, 'prosess'])->name('sertifikat.create');
+
+Route::get('/verifikasi', [SertifikatController::class, 'showVerificationPage'])->name('sertifikat.verifikasi');
+Route::post('/verifikasi', [SertifikatController::class, 'verifyCertificate'])->name('sertifikat.verify');
+
+

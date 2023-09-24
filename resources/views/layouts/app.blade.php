@@ -13,7 +13,8 @@
             <ul>
                 <li><a href="/add-product">Tambah Produk</a></li>
                 <li><a href="/create-virtual-account">Bikin Virtual Account</a></li>
-                <li><a href="/simulate-payment">Simulasi Payment</a></li>
+                <li><a href="/simulate-payment">Simulasi Payment</a></li>   
+                <li><a href="/materi/create">Buat Materi</a></li>                             
             </ul>
         </nav>
     </header>

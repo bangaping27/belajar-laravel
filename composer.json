@@ -12,6 +12,9 @@
         "laravel/tinker": "^2.8",
         "nggit/php-terbilang": "^1.0",
         "riskihajar/terbilang": "2.0",
+        "setasign/fpdf": "^1.8",
+        "setasign/fpdi": "^2.4",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "xendit/xendit-php": "^2.19"
     },
     "require-dev": {
